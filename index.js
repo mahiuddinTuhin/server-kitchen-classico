@@ -38,6 +38,14 @@ async function run() {
       const result = await cursor.limit(limit).toArray();
       res.send(result);
     });
+
+    app.get("/items/:id", async (req, res) => {
+      const newid = req.params.id;
+      const query = { _id: ObjectId(newid) };
+      const place = await kitchenItemsCollection.findOne(query);
+      console.log(place);
+      res.send(place);
+    });
   } finally {
   }
 }
