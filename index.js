@@ -56,6 +56,18 @@ async function run() {
       const result = await kitchenItemsCollection.insertOne(review);
       console.log("insert done");
     });
+
+     app.get("/reviews/:id", async (req, res) => {
+       const id = req.params.id;
+       const query = {
+         newPlaceId: id,
+       };
+
+       const cursor = reviewCollection.find(query);
+       const reviewsById = await cursor.toArray();
+       // console.log(result);
+       res.send(reviewsById);
+     });
   } finally {
   }
 }
