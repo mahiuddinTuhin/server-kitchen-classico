@@ -60,15 +60,12 @@ async function run() {
       const query = {
         newPlaceId: id,
       };
-
       const cursor = reviewCollection.find(query);
       const reviewsById = await cursor.toArray();
-      // console.log(result);
       res.send(reviewsById);
     });
     app.get("/userReview/:email", async (req, res) => {
       const email = req.params.email;
-      // console.log(email);
       const query = {
         email,
       };
@@ -86,6 +83,7 @@ async function run() {
       res.send(result);
     });
   } finally {
+    console.log();
   }
 }
 run().catch((err) => console.log(err));
