@@ -18,10 +18,8 @@ app.get("/", (req, res) => {
 });
 async function run() {
   try {
-    const kitchenItemsCollection = client
-      .db("travelDb")
-      .collection("touristPlace");
-    const reviewCollection = client.db("travelDb").collection("reviews");
+    const kitchenItemsCollection = client.db("kitchen").collection("items");
+    const reviewCollection = client.db("kitchen").collection("reviews");
 
     app.get("/items", async (req, res) => {
       const limit = parseInt(req.query.limit) || 0;
