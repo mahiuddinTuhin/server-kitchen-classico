@@ -51,6 +51,11 @@ async function run() {
       const result = await reviewCollection.insertOne(review);
       console.log("insert done");
     });
+    app.post("/addservices", async (req, res) => {
+      const review = req.body;
+      const result = await kitchenItemsCollection.insertOne(review);
+      console.log("insert done");
+    });
   } finally {
   }
 }
