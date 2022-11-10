@@ -57,17 +57,17 @@ async function run() {
       console.log("insert done");
     });
 
-     app.get("/reviews/:id", async (req, res) => {
-       const id = req.params.id;
-       const query = {
-         newPlaceId: id,
-       };
+    app.get("/reviews/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = {
+        newPlaceId: id,
+      };
 
-       const cursor = reviewCollection.find(query);
-       const reviewsById = await cursor.toArray();
-       // console.log(result);
-       res.send(reviewsById);
-     });
+      const cursor = reviewCollection.find(query);
+      const reviewsById = await cursor.toArray();
+      // console.log(result);
+      res.send(reviewsById);
+    });
     app.get("/userReview/:email", async (req, res) => {
       const email = req.params.email;
       // console.log(email);
@@ -79,6 +79,13 @@ async function run() {
       const reviewsByEmail = await cursor.toArray();
 
       res.send(reviewsByEmail);
+    });
+
+    app.delete("/delete/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await reviewCollection.deleteOne(query);
+      res.send(result);
     });
   } finally {
   }
