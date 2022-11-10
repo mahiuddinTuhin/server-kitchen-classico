@@ -30,6 +30,14 @@ async function run() {
       const result = await cursor.limit(limit).toArray();
       res.send(result);
     });
+
+    app.post("/items", async (req, res) => {
+      const limit = parseInt(req.query.limit) || 0;
+      const query = {};
+      const cursor = kitchenItemsCollection.find(query);
+      const result = await cursor.limit(limit).toArray();
+      res.send(result);
+    });
   } finally {
   }
 }
