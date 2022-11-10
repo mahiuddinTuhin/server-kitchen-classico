@@ -13,12 +13,28 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
-
 app.get("/", (req, res) => {
-  res.send("server is active");
-  console.log(uri);
+  res.send("Server is active");
 });
+async function run() {
+  try {
+    const kitchenItemsCollection = client
+      .db("travelDb")
+      .collection("touristPlace");
+    const reviewCollection = client.db("travelDb").collection("reviews");
+
+    app.get("/items", async (req, res) => {
+      const limit = parseInt(req.query.limit) || 0;
+      const query = {};
+      const cursor = kitchenItemsCollection.find(query);
+      const result = await cursor.limit(limit).toArray();
+      res.send(result);
+    });
+  } finally {
+  }
+}
+run().catch((err) => console.log(err));
 
 app.listen(port, () => {
-  console.log(`server working on port: ${port}`);
+  console.log(`server is active on port ${port}`);
 });
